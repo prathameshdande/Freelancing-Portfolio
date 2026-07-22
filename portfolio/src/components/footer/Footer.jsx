@@ -254,7 +254,7 @@ export default function Footer() {
               <span className="hidden sm:inline">All rights reserved.</span>
             </div>
 
-            {/* Built With */}
+            {/* Built With
             <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
               <span>Built with</span>
               
@@ -270,7 +270,7 @@ export default function Footer() {
               <span className="font-medium text-slate-700 dark:text-slate-300">
                 Framer Motion
               </span>
-            </div>
+            </div> */}
 
             {/* Quick Links Row */}
             <div className="flex items-center gap-4">
