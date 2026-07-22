@@ -1,36 +1,13 @@
 import { useState, useEffect } from "react";
 import { Moon, Sun } from "lucide-react";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function ThemeToggle() {
-  const [isDark, setIsDark] = useState(
-    document.documentElement.classList.contains("dark"),
-  );
-
-  useEffect(() => {
-    // Sync state with class changes
-    const observer = new MutationObserver(() => {
-      setIsDark(document.documentElement.classList.contains("dark"));
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const toggleTheme = () => {
-    const next = !isDark;
-    setIsDark(next);
-
-    document.documentElement.classList.toggle("dark", next);
-    localStorage.setItem("theme", next ? "dark" : "light");
-  };
+  const { isDarkMode, toggleDarkMode } = useTheme();
 
   return (
     <button
-      onClick={toggleTheme}
+      onClick={toggleDarkMode}
       className="
         relative
         flex
@@ -44,6 +21,7 @@ export default function ThemeToggle() {
         duration-300
         shadow-inner
         hover:shadow-lg
+        cursor-pointer
       "
       aria-label="Toggle theme">
       <div
@@ -61,9 +39,9 @@ export default function ThemeToggle() {
           shadow-lg
           transition-all
           duration-300
-          ${isDark ? "translate-x-8" : ""}
+          ${isDarkMode ? "translate-x-8" : ""}
         `}>
-        {isDark ? (
+        {isDarkMode ? (
           <Moon size={18} className="text-slate-300" />
         ) : (
           <Sun size={18} className="text-amber-500" />
