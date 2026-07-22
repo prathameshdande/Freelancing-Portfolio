@@ -1,0 +1,17 @@
+node_modules/
+.git/
+.github/
+.vscode/
+.idea/
+*.log
+.env
+.env.local
+.env.*.local
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+README.md
+.gitignore
