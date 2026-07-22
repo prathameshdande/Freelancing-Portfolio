@@ -63,23 +63,23 @@ const ContactCard = React.memo(({ item }) => {
       rel="noopener noreferrer"
       download={item.download || false}
       aria-label={item.ariaLabel || `Contact via ${item.title}`}
-      className="group rounded-2xl border border-slate-200 dark:border-slate-700 p-4 hover:border-violet-300 dark:hover:border-violet-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 bg-white dark:bg-slate-800">
+      className="group rounded-2xl border border-slate-200 dark:border-slate-700 p-3 sm:p-4 hover:border-violet-300 dark:hover:border-violet-700 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 bg-white dark:bg-slate-800">
       <div
-        className={`w-12 h-12 rounded-xl flex items-center justify-center mb-3 ${item.color || "bg-violet-100 text-violet-600 dark:bg-violet-950/50 dark:text-violet-400"}`}>
-        <Icon size={24} />
+        className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-2 sm:mb-3 ${item.color || "bg-violet-100 text-violet-600 dark:bg-violet-950/50 dark:text-violet-400"}`}>
+        <Icon size={20} className="sm:size-24" />
       </div>
 
-      <h4 className="font-semibold text-base text-slate-900 dark:text-white">
+      <h4 className="font-semibold text-sm sm:text-base text-slate-900 dark:text-white">
         {item.title}
       </h4>
 
-      <p className="text-slate-500 dark:text-slate-400 text-xs mt-1 line-clamp-1">
+      <p className="text-slate-500 dark:text-slate-400 text-[10px] sm:text-xs mt-0.5 sm:mt-1 line-clamp-1">
         {item.subtitle}
       </p>
 
-      <div className="mt-4 flex justify-end">
+      <div className="mt-3 sm:mt-4 flex justify-end">
         <ArrowUpRight
-          size={18}
+          size={16}
           className="text-slate-400 dark:text-slate-600 group-hover:text-violet-600 dark:group-hover:text-violet-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300"
           aria-hidden="true"
         />
@@ -91,14 +91,18 @@ const ContactCard = React.memo(({ item }) => {
 ContactCard.displayName = "ContactCard";
 
 const InfoCard = React.memo(({ icon: Icon, title, value, className = "" }) => (
-  <div className="space-y-1">
-    <h4 className="font-semibold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+  <div className="space-y-0.5 sm:space-y-1">
+    <h4 className="font-semibold text-slate-900 dark:text-white text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2">
       {Icon && (
-        <Icon size={14} className="text-violet-500 dark:text-violet-400" />
+        <Icon
+          size={12}
+          className="sm:size-14 text-violet-500 dark:text-violet-400"
+        />
       )}
       {title}
     </h4>
-    <p className={`text-slate-500 dark:text-slate-400 text-sm ${className}`}>
+    <p
+      className={`text-slate-500 dark:text-slate-400 text-xs sm:text-sm ${className}`}>
       {value}
     </p>
   </div>
@@ -189,41 +193,46 @@ const ContactModal = ({ isOpen, onClose, onSuccess }) => {
 
   return (
     <div
-      className="fixed inset-0 z-[999] flex items-center justify-center bg-black/40 backdrop-blur-md p-4 transition-opacity duration-300"
+      className="fixed inset-0 z-[999] flex items-center justify-center bg-black/40 backdrop-blur-md p-2 sm:p-4 transition-opacity duration-300"
       role="dialog"
       aria-modal="true"
       aria-labelledby="contact-modal-title">
       <div
         ref={modalRef}
-        className="relative w-full max-w-6xl h-[80vh] max-h-[700px] overflow-hidden rounded-[28px] bg-white dark:bg-slate-900 shadow-2xl border border-slate-200 dark:border-slate-800 animate-[fadeIn_.25s_ease]"
+        className="relative w-full max-w-6xl h-[90vh] sm:h-[85vh] md:h-[80vh] max-h-[700px] overflow-hidden rounded-2xl sm:rounded-[28px] bg-white dark:bg-slate-900 shadow-2xl border border-slate-200 dark:border-slate-800 animate-[fadeIn_.25s_ease]"
         role="document">
+        {/* Close Button - Better positioning for mobile */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
+          className="absolute top-2 sm:top-3 md:top-4 right-2 sm:right-3 md:right-4 z-20 p-1.5 sm:p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
           aria-label="Close modal">
-          <X size={20} className="text-slate-900 dark:text-white" />
+          <X size={18} className="sm:size-20 text-slate-900 dark:text-white" />
         </button>
 
         <div className="grid lg:grid-cols-[1fr_1.4fr] h-full">
-          <div className="bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 border-r border-slate-200 dark:border-slate-800 p-6 lg:p-8 flex flex-col justify-between overflow-hidden">
+          {/* Left Column - Info */}
+          <div className="bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 border-r border-slate-200 dark:border-slate-800 p-4 sm:p-6 lg:p-8 flex flex-col justify-between overflow-hidden">
             <div className="flex-1 flex flex-col justify-center">
-              <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 dark:bg-emerald-950/50 px-3 py-1.5 text-emerald-700 dark:text-emerald-400 text-xs font-medium border border-emerald-200 dark:border-emerald-800 self-start">
-                <CheckCircle2 size={14} className="text-emerald-500" />
+              <span className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-emerald-50 dark:bg-emerald-950/50 px-2.5 sm:px-3 py-1 sm:py-1.5 text-emerald-700 dark:text-emerald-400 text-[10px] sm:text-xs font-medium border border-emerald-200 dark:border-emerald-800 self-start">
+                <CheckCircle2
+                  size={12}
+                  className="sm:size-14 text-emerald-500"
+                />
                 Available for Work
               </span>
 
               <h2
                 id="contact-modal-title"
-                className="text-2xl lg:text-3xl font-bold mt-4 text-slate-900 dark:text-white">
+                className="text-xl sm:text-2xl lg:text-3xl font-bold mt-3 sm:mt-4 text-slate-900 dark:text-white">
                 Let's Work Together
               </h2>
 
-              <p className="mt-3 text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+              <p className="mt-2 sm:mt-3 text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed">
                 I'm available for freelance projects, internships, full-time
                 opportunities, and collaborations.
               </p>
 
-              <div className="mt-6 grid grid-cols-1 gap-4">
+              <div className="mt-4 sm:mt-6 grid grid-cols-1 gap-2 sm:gap-4">
                 {infoItems.map((item) => (
                   <InfoCard
                     key={item.id}
@@ -235,30 +244,34 @@ const ContactModal = ({ isOpen, onClose, onSuccess }) => {
               </div>
             </div>
 
-            <div className="rounded-xl bg-gradient-to-br from-violet-50 to-indigo-50 dark:from-violet-950 dark:to-indigo-950 border border-violet-200 dark:border-violet-800 p-4 mt-4 flex-shrink-0">
-              <h3 className="font-semibold text-slate-900 dark:text-white text-sm flex items-center gap-2">
-                <span className="text-xl">💡</span>
+            <div className="rounded-xl bg-gradient-to-br from-violet-50 to-indigo-50 dark:from-violet-950 dark:to-indigo-950 border border-violet-200 dark:border-violet-800 p-3 sm:p-4 mt-3 sm:mt-4 flex-shrink-0">
+              <h3 className="font-semibold text-slate-900 dark:text-white text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2">
+                <span className="text-lg sm:text-xl">💡</span>
                 Have an idea?
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
+              <p className="text-[10px] sm:text-xs text-slate-600 dark:text-slate-400 mt-0.5">
                 Let's build something amazing together.
               </p>
             </div>
           </div>
 
-          <div className="overflow-y-auto p-6 lg:p-8 bg-white dark:bg-slate-900">
-            <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-4">
+          {/* Right Column - Contact Options */}
+          <div className="overflow-y-auto p-4 sm:p-6 lg:p-8 bg-white dark:bg-slate-900">
+            <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-slate-900 dark:text-white mb-3 sm:mb-4">
               Contact Options
             </h3>
 
-            <div className="grid grid-cols-2 gap-3">{contactCards}</div>
+            {/* Grid - Responsive columns */}
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 gap-2 sm:gap-3">
+              {contactCards}
+            </div>
 
-            <div className="mt-6 rounded-2xl bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 border border-slate-200 dark:border-slate-700 p-4">
-              <h3 className="font-semibold text-slate-900 dark:text-white text-sm flex items-center gap-2">
-                <span className="text-lg">🚀</span>
+            <div className="mt-4 sm:mt-6 rounded-2xl bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 border border-slate-200 dark:border-slate-700 p-3 sm:p-4">
+              <h3 className="font-semibold text-slate-900 dark:text-white text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2">
+                <span className="text-base sm:text-lg">🚀</span>
                 Ready to start?
               </h3>
-              <p className="text-slate-500 dark:text-slate-400 text-xs mt-0.5 leading-relaxed">
+              <p className="text-slate-500 dark:text-slate-400 text-[10px] sm:text-xs mt-0.5 leading-relaxed">
                 Reach out through any platform above. Always excited to discuss
                 new ideas.
               </p>
