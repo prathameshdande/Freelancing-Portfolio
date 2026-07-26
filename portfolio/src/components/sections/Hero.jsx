@@ -476,7 +476,7 @@ export default function Hero() {
                 <div className="p-5 sm:p-6 md:p-8 border-b border-slate-200 dark:border-slate-700 relative z-10">
                   <div className="flex items-center gap-3 sm:gap-4">
                     <img
-                      src="../../assets/Photo_Passport_size.jpg"
+                      src="../../assets/Photo_Passport_size (1).png"
                       alt="Prathamesh Dande"
                       loading="lazy"
                       className="w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl sm:rounded-2xl object-cover ring-2 ring-violet-500/20"
