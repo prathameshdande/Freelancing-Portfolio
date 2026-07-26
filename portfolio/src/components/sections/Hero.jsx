@@ -225,7 +225,10 @@ export default function Hero() {
                 variant="secondary"
                 className="px-5 sm:px-7 py-3 sm:py-4 text-sm sm:text-base"
                 onClick={() =>
-                  window.open("/Prathamesh_Dande_Resume.pdf", "_blank")
+                  window.open(
+                    ("../../assets/Prathamesh_Dande_Resume.pdf"),
+                    "_blank",
+                  )
                 }>
                 <Download className="mr-1 sm:mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                 <span className="hidden xs:inline">Resume</span>

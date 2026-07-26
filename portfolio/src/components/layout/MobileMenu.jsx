@@ -88,7 +88,7 @@ export default function MobileMenu({ open, setOpen, links }) {
 
             {/* Resume Button */}
             <a
-              href="/Prathamesh_Dande_Resume.pdf"
+              href="../../assets/Prathamesh_Dande_Resume.pdf"
               target="_blank"
               rel="noreferrer"
               className="

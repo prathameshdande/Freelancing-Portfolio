@@ -143,7 +143,7 @@ export default function Navbar() {
                 <ThemeToggle />
 
                 <a
-                  href="/Prathamesh_Dande_Resume.pdf"
+                  href="../../assets/Prathamesh_Dande_Resume.pdf"
                   target="_blank"
                   rel="noreferrer"
                   className="
