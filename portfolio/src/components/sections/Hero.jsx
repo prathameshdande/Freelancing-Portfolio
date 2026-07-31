@@ -13,6 +13,8 @@ import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 
 import Button from "../common/Button";
 import ContactModal from "../sections/ContactModal";
+import Prathamesh_Dande_Resume from "../../assets/Prathamesh_Dande_Resume.pdf";
+import PrathameshDande from "../../assets/PrathameshDande .png";
 
 // Animation Variants
 const containerVariants = {
@@ -58,7 +60,7 @@ const fadeRight = {
 const stats = [
   {
     icon: Briefcase,
-    value: "50+",
+    value: "6+",
     label: "Projects",
   },
   {
@@ -73,7 +75,7 @@ const stats = [
   },
 ];
 
-// Tech Stack (reduced for mobile)
+// Tech Stack
 const techStack = [
   "React",
   "Next.js",
@@ -86,7 +88,6 @@ const techStack = [
   "Solana",
 ];
 
-// Hero Component
 export default function Hero() {
   const [openModal, setOpenModal] = useState(false);
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
@@ -112,7 +113,7 @@ export default function Hero() {
         className="pointer-events-none fixed w-[400px] h-[400px] rounded-full bg-violet-500/10 blur-[120px] transition-all duration-300 z-0 hidden md:block"
       />
 
-      {/* Floating Particles - Hidden on mobile */}
+      {/* Floating Particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none hidden md:block">
         {[...Array(18)].map((_, i) => (
           <motion.div
@@ -134,7 +135,7 @@ export default function Hero() {
         ))}
       </div>
 
-      {/* Background Decorative Elements - Simplified for mobile */}
+      {/* Background Decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-violet-200/30 dark:bg-violet-900/20 rounded-full blur-3xl hidden md:block" />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-200/30 dark:bg-blue-900/20 rounded-full blur-3xl hidden md:block" />
@@ -162,7 +163,7 @@ export default function Hero() {
               </div>
             </motion.div>
 
-            {/* 2. Animated Heading */}
+            {/* 2. Heading */}
             <motion.div variants={fadeUp} className="space-y-2 md:space-y-4">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.05] tracking-tight">
                 Building
@@ -188,7 +189,7 @@ export default function Hero() {
               Node.js, PostgreSQL, MongoDB, and Solana.
             </motion.p>
 
-            {/* 4. Tech Stack Pills - Scrollable on mobile */}
+            {/* 4. Tech Stack Pills */}
             <motion.div
               variants={fadeUp}
               className="flex flex-wrap gap-2 sm:gap-3 overflow-x-auto pb-2 scrollbar-hide"
@@ -224,16 +225,14 @@ export default function Hero() {
               <Button
                 variant="secondary"
                 className="px-5 sm:px-7 py-3 sm:py-4 text-sm sm:text-base"
-                onClick={() =>
-                  window.open("/Prathamesh_Dande_Resume.pdf", "_blank")
-                }>
+                onClick={() => window.open(Prathamesh_Dande_Resume, "_blank")}>
                 <Download className="mr-1 sm:mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                 <span className="hidden xs:inline">Resume</span>
                 <span className="inline xs:hidden">CV</span>
               </Button>
             </motion.div>
 
-            {/* 6. Quick Highlights - Wrap on mobile */}
+            {/* 6. Quick Highlights */}
             <motion.div
               variants={fadeUp}
               className="flex flex-wrap gap-3 sm:gap-6 pt-2 sm:pt-3">
@@ -257,7 +256,7 @@ export default function Hero() {
               </div>
             </motion.div>
 
-            {/* 7. Animated Statistics - Hide 3rd stat on very small screens */}
+            {/* 7. Statistics */}
             <motion.div
               variants={fadeUp}
               className="grid grid-cols-2 xs:grid-cols-3 gap-3 sm:gap-5 pt-6 sm:pt-10">
@@ -282,23 +281,22 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* RIGHT SIDE - Optimized for mobile */}
+          {/* RIGHT SIDE – Profile Card with Floating Cards */}
           <motion.div
             variants={fadeRight}
             initial="hidden"
             animate="show"
             className="relative flex justify-center mt-8 md:mt-0">
-            <div className="relative">
-              {/* Glow - Smaller on mobile */}
+            {/* This container holds the profile card + all floating cards */}
+            <div className="relative w-fit">
+              {/* Glow behind profile */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="h-[250px] w-[250px] sm:h-[300px] sm:w-[300px] md:h-[420px] md:w-[420px] rounded-full bg-gradient-to-r from-violet-500/20 via-cyan-400/20 to-fuchsia-500/20 blur-3xl animate-pulse" />
               </div>
 
-              {/* Rotating Gradient Ring - Smaller on mobile */}
+              {/* Rotating gradient ring */}
               <motion.div
-                animate={{
-                  rotate: 360,
-                }}
+                animate={{ rotate: 360 }}
                 transition={{
                   repeat: Infinity,
                   duration: 18,
@@ -307,116 +305,46 @@ export default function Hero() {
                 className="absolute -inset-1 rounded-[28px] sm:rounded-[32px] md:rounded-[36px] bg-gradient-to-r from-violet-500 via-cyan-500 via-fuchsia-500 to-violet-500 opacity-70 blur-xl"
               />
 
-              {/* Floating Badge - Rocket - Smaller on mobile */}
-              <motion.div
-                animate={{
-                  rotate: [0, 6, -6, 0],
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 6,
-                }}
-                className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 md:-top-6 md:-right-6 z-40">
-                <div className="rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-500 p-3 sm:p-4 md:p-5 shadow-2xl">
-                  <Rocket className="text-white" size={16} />
-                </div>
-              </motion.div>
+              {/* ---- FLOATING CARDS (positioned absolute inside this container) ---- */}
 
-              {/* Floating Card 1 - Current Stack - Hidden on very small screens */}
+              {/* 1. Blockchain Card – left side, middle */}
               <motion.div
-                animate={{
-                  y: [-8, 8, -8],
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 4,
-                }}
-                className="absolute -left-8 sm:-left-10 md:-left-12 top-16 sm:top-20 z-30 rounded-2xl border border-white/20 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl px-3 sm:px-5 py-2 sm:py-4 shadow-xl hidden sm:block">
-                <p className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400">
-                  Current Stack
-                </p>
-                <h3 className="text-xs sm:text-sm md:text-base font-bold text-slate-900 dark:text-white">
-                  React + Node.js
-                </h3>
-              </motion.div>
-
-              {/* Experience Badge - Hidden on mobile */}
-              <motion.div
-                animate={{
-                  y: [0, -12, 0],
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 4,
-                }}
-                className="absolute top-8 sm:top-12 -left-16 sm:-left-20 z-40 rounded-3xl bg-white dark:bg-slate-900 shadow-xl backdrop-blur-xl px-4 sm:px-6 py-3 sm:py-5 hidden md:block">
-                <p className="text-[10px] sm:text-xs text-slate-500">
-                  Building
-                </p>
-                <h2 className="font-bold text-lg sm:text-2xl text-slate-900 dark:text-white">
-                  Modern Apps
-                </h2>
-                <p className="text-xs sm:text-sm text-violet-600">
-                  React • Node • Solana
-                </p>
-              </motion.div>
-
-              {/* Floating Card 2 - Blockchain - Hidden on very small screens */}
-              <motion.div
-                animate={{
-                  y: [10, -10, 10],
-                }}
+                animate={{ y: [0, -12, 0] }}
                 transition={{
                   repeat: Infinity,
                   duration: 5,
+                  ease: "easeInOut",
                 }}
-                className="absolute -right-6 sm:-right-8 md:-right-10 bottom-20 sm:bottom-24 z-30 rounded-2xl border border-white/20 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl px-3 sm:px-5 py-2 sm:py-4 shadow-xl hidden sm:block">
-                <p className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400">
+                className="absolute -left-6 sm:-left-10 md:-left-14 top-1/2 -translate-y-1/2 z-30 rounded-2xl border border-white/20 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl px-4 sm:px-5 py-3 sm:py-4 shadow-xl hidden lg:block">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   Blockchain
                 </p>
-                <h3 className="text-xs sm:text-sm md:text-base font-bold text-slate-900 dark:text-white">
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white">
                   Solana Web3
                 </h3>
               </motion.div>
 
-              {/* Availability Card - Hidden on mobile */}
+              {/* 2. GitHub Card – right side, lower */}
               <motion.div
-                animate={{
-                  x: [0, 10, 0],
-                }}
+                animate={{ y: [0, 12, 0] }}
                 transition={{
                   repeat: Infinity,
-                  duration: 5,
+                  duration: 6,
+                  ease: "easeInOut",
                 }}
-                className="absolute -right-8 sm:-right-12 md:-right-16 top-36 sm:top-44 md:top-48 rounded-2xl bg-emerald-500 text-white px-4 sm:px-6 py-3 sm:py-4 shadow-xl z-30 hidden sm:block">
-                <div className="text-[10px] sm:text-sm">Available</div>
-                <div className="text-sm sm:text-base md:text-lg font-bold">
-                  For Work
-                </div>
-              </motion.div>
-
-              {/* Floating GitHub Card - Hidden on mobile */}
-              <motion.div
-                animate={{
-                  y: [-12, 12, -12],
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 5,
-                }}
-                className="absolute -bottom-16 sm:-bottom-20 right-4 sm:right-6 z-30 rounded-3xl border border-white/20 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl p-4 sm:p-5 shadow-2xl hidden sm:block">
+                className="absolute -right-6 sm:-right-10 md:-right-14 bottom-1/4 z-30 rounded-3xl border border-white/20 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl p-4 sm:p-5 shadow-2xl hidden lg:block">
                 <div className="space-y-2">
-                  <p className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400">
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
                     GitHub
                   </p>
-                  <h3 className="text-xs sm:text-sm md:text-base font-bold text-slate-900 dark:text-white">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white">
                     Open Source
                   </h3>
                   <div className="flex gap-1">
                     {Array.from({ length: 15 }).map((_, i) => (
                       <div
                         key={i}
-                        className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${
+                        className={`w-1.5 h-1.5 rounded-full ${
                           i % 3 === 0
                             ? "bg-emerald-500"
                             : "bg-slate-300 dark:bg-slate-700"
@@ -427,14 +355,81 @@ export default function Hero() {
                 </div>
               </motion.div>
 
-              {/* Floating Code Window - Hidden on mobile */}
+              {/* 3. Dande Identity Card – left side, lower */}
               <motion.div
-                animate={{
-                  y: [-8, 8, -8],
-                }}
+                animate={{ y: [0, -10, 0] }}
                 transition={{
                   repeat: Infinity,
                   duration: 5,
+                  ease: "easeInOut",
+                }}
+                className="absolute -left-6 sm:-left-10 md:-left-14 bottom-8 sm:bottom-12 z-30 rounded-2xl border border-white/20 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl px-4 sm:px-5 py-3 sm:py-4 shadow-xl hidden md:block">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Dande
+                </p>
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                  Full Stack Developer
+                </h3>
+                <p className="text-xs text-violet-600">React • Node • Solana</p>
+              </motion.div>
+
+              {/* 4. Current Focus Card – right side, upper */}
+              <motion.div
+                animate={{ y: [0, 10, 0] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 4,
+                  ease: "easeInOut",
+                }}
+                className="absolute -right-6 sm:-right-10 md:-right-14 top-1/4 z-30 rounded-2xl border border-white/20 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl px-4 sm:px-5 py-3 sm:py-4 shadow-xl hidden lg:block">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  CURRENT FOCUS
+                </p>
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                  Full Stack + Web3
+                </h3>
+              </motion.div>
+
+              {/* 5. Projects Card – right side, lower-middle */}
+              <motion.div
+                animate={{ x: [0, -8, 0] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 6,
+                  ease: "easeInOut",
+                }}
+                className="absolute -right-6 sm:-right-10 md:-right-14 bottom-1/3 z-30 rounded-2xl border border-white/20 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl px-4 sm:px-5 py-3 sm:py-4 shadow-xl hidden lg:block">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Projects
+                </p>
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                  6+
+                </h3>
+                <p className="text-xs text-slate-500">15+ Technologies</p>
+              </motion.div>
+
+              {/* 6. Available Badge – floating top right */}
+              <motion.div
+                animate={{ x: [0, 8, 0] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 5,
+                  ease: "easeInOut",
+                }}
+                className="absolute -right-4 sm:-right-6 md:-right-8 top-8 sm:top-10 z-30 rounded-2xl bg-emerald-500 text-white px-4 sm:px-6 py-3 sm:py-4 shadow-xl hidden sm:block">
+                <div className="text-xs sm:text-sm">Available</div>
+                <div className="text-sm sm:text-base md:text-lg font-bold">
+                  For Work
+                </div>
+              </motion.div>
+
+              {/* 7. Floating Code Window – bottom left */}
+              <motion.div
+                animate={{ y: [-8, 8, -8] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 5,
+                  ease: "easeInOut",
                 }}
                 className="absolute -bottom-8 sm:-bottom-10 left-6 sm:left-10 z-40 w-56 sm:w-64 md:w-72 rounded-2xl sm:rounded-3xl border border-white/20 bg-slate-950 shadow-2xl overflow-hidden hidden sm:block">
                 <div className="flex gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-3 bg-slate-900">
@@ -454,7 +449,21 @@ export default function Hero() {
                 </div>
               </motion.div>
 
-              {/* Main Profile Card - Responsive */}
+              {/* Rocket badge – top right of profile */}
+              <motion.div
+                animate={{ rotate: [0, 6, -6, 0] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 6,
+                  ease: "easeInOut",
+                }}
+                className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 md:-top-6 md:-right-6 z-40">
+                <div className="rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-500 p-3 sm:p-4 md:p-5 shadow-2xl">
+                  <Rocket className="text-white" size={16} />
+                </div>
+              </motion.div>
+
+              {/* ---- MAIN PROFILE CARD ---- */}
               <motion.div
                 whileHover={{
                   y: -5,
@@ -467,16 +476,16 @@ export default function Hero() {
                   stiffness: 180,
                 }}
                 className="relative z-20 w-[280px] sm:w-[320px] md:w-[360px] rounded-[24px] sm:rounded-[28px] md:rounded-[32px] border border-white/20 dark:border-slate-700 bg-white/60 dark:bg-slate-900/50 backdrop-blur-2xl shadow-2xl overflow-hidden">
-                {/* Glass Reflection - Hidden on mobile */}
+                {/* Glass Reflection */}
                 <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden hidden md:block">
                   <div className="absolute -top-20 -left-24 w-72 h-72 rotate-12 bg-white/20 blur-3xl" />
                 </div>
 
-                {/* Header - Responsive */}
+                {/* Header */}
                 <div className="p-5 sm:p-6 md:p-8 border-b border-slate-200 dark:border-slate-700 relative z-10">
                   <div className="flex items-center gap-3 sm:gap-4">
                     <img
-                      src="../../assets/Photo_Passport_size (1).png"
+                      src={PrathameshDande}
                       alt="Prathamesh Dande"
                       loading="lazy"
                       className="w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl sm:rounded-2xl object-cover ring-2 ring-violet-500/20"
@@ -492,7 +501,7 @@ export default function Hero() {
                   </div>
                 </div>
 
-                {/* Developer Dashboard - Responsive */}
+                {/* Dashboard */}
                 <div className="p-5 sm:p-6 md:p-8 space-y-4 sm:space-y-5 md:space-y-6 relative z-10">
                   {/* Status */}
                   <div className="flex flex-wrap items-center justify-between gap-2">
@@ -509,11 +518,11 @@ export default function Hero() {
                     </span>
                   </div>
 
-                  {/* Metrics - Responsive grid */}
+                  {/* Metrics */}
                   <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
                     <div className="rounded-xl sm:rounded-2xl bg-slate-100 dark:bg-slate-800 p-3 sm:p-4 md:p-5">
                       <p className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 dark:text-white">
-                        50+
+                        6+
                       </p>
                       <p className="text-[10px] sm:text-xs md:text-sm text-slate-500 dark:text-slate-400">
                         Projects
@@ -545,7 +554,7 @@ export default function Hero() {
                     </div>
                   </div>
 
-                  {/* Featured Technologies - Responsive */}
+                  {/* Core Technologies */}
                   <div>
                     <p className="mb-2 sm:mb-3 text-[10px] sm:text-xs md:text-sm font-semibold text-slate-500 dark:text-slate-400">
                       Core Technologies
@@ -592,7 +601,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll Indicator - Hidden on mobile */}
+      {/* Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -603,13 +612,8 @@ export default function Hero() {
         </span>
         <div className="relative h-12 w-7 rounded-full border-2 border-slate-400 dark:border-slate-600">
           <motion.div
-            animate={{
-              y: [4, 20, 4],
-            }}
-            transition={{
-              repeat: Infinity,
-              duration: 2,
-            }}
+            animate={{ y: [4, 20, 4] }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
             className="absolute left-1/2 top-1 h-2 w-2 -translate-x-1/2 rounded-full bg-violet-500"
           />
         </div>

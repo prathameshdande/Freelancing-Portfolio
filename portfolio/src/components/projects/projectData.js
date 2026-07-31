@@ -1,3 +1,9 @@
+import gigflow from "../../assets/gigflow.png";
+import SecondBrain from "../../assets/SecondBrain.png"
+import walletAdapter from "../../assets/walletAdapter.png"
+import PrathsGPT from "../../assets/PrathsGPT.png"
+import AdminDashboard from "../../assets/AdminDashboard.png"
+
 const projects = [
   {
     id: 1,
@@ -6,8 +12,8 @@ const projects = [
     subtitle: "Freelance Marketplace",
     description:
       "A full-stack freelance marketplace where clients post gigs, freelancers bid, and hiring is managed securely through JWT authentication.",
-    image: "/projects/gigflow.png",
-    preview: "/projects/gigflow.mp4",
+    image: gigflow,
+    preview: null,
     tech: ["React", "Node.js", "Express", "MongoDB", "JWT", "Socket.io"],
     features: [
       "Authentication",
@@ -22,8 +28,8 @@ const projects = [
       status: "Live",
     },
     gradient: ["from-violet-600", "to-cyan-500"],
-    github: "#",
-    live: "#",
+    github: "https://github.com/prathameshdande/gigflow",
+    live: "gigflow-rqw1.vercel.app",
   },
   {
     id: 2,
@@ -32,8 +38,8 @@ const projects = [
     subtitle: "Knowledge Management",
     description:
       "A productivity application that stores YouTube videos, tweets, notes, and links with secure authentication and intelligent organization.",
-    image: "/projects/secondbrain.png",
-    preview: "/projects/secondbrain.mp4",
+    image: SecondBrain,
+    preview: "",
     tech: ["React", "TypeScript", "Express", "MongoDB", "Tailwind"],
     features: ["Authentication", "Shared Collections", "Search", "REST APIs"],
     stats: {
@@ -43,8 +49,8 @@ const projects = [
       status: "Live",
     },
     gradient: ["from-emerald-500", "to-teal-500"],
-    github: "#",
-    live: "#",
+    github: "https://github.com/prathameshdande/Second-Brainly-App",
+    live: "https://second-brainly-app.vercel.app/",
   },
   {
     id: 3,
@@ -64,8 +70,111 @@ const projects = [
       status: "Live",
     },
     gradient: ["from-fuchsia-500", "to-violet-500"],
-    github: "#",
-    live: "#",
+    github: "https://github.com/prathameshdande/Solana-Token-Launchpad",
+    live: "https://solana-token-launchpad-five.vercel.app/",
+  },
+  {
+    id: 4,
+    featured: true,
+    title: "Solana Wallet Adapter",
+    subtitle: "Web3 Wallet Integration",
+    description:
+      "A decentralized Web3 application that integrates Solana Wallet Adapter to enable secure wallet authentication and seamless blockchain interactions. Users can connect Phantom and other Solana-compatible wallets, view wallet information, and perform on-chain transactions through an intuitive React interface.",
+    image: walletAdapter,
+    preview: "/projects/walletadapter.mp4",
+    tech: [
+      "React",
+      "Solana Web3.js",
+      "Wallet Adapter",
+      "Phantom Wallet",
+      "Tailwind CSS",
+      "Vite",
+    ],
+    features: [
+      "Multi-Wallet Support",
+      "Phantom Wallet Integration",
+      "Secure Wallet Authentication",
+      "Wallet Connect & Disconnect",
+      "Balance Retrieval",
+      "Transaction Signing",
+      "Responsive UI",
+      "Network Support (Devnet/Mainnet)",
+    ],
+    stats: {
+      duration: "2 Weeks",
+      team: "Solo",
+      commits: "90+",
+      status: "Live",
+    },
+    gradient: ["from-purple-600", "to-emerald-500"],
+    github: "https://github.com/prathameshdande/Wallet_adapter",
+    live: "https://wallet-adapter-iota.vercel.app/",
+  },
+  {
+    id: 5,
+    featured: true,
+    title: "PrathsGPT",
+    subtitle: "AI Chat Application",
+    description:
+      "A modern AI chat application built with React and integrated with a conversational interface for generating fast, interactive responses in a clean and responsive UI.",
+    image: PrathsGPT,
+    preview: "/projects/prathsgpt.mp4",
+    tech: [
+      "React",
+      "JavaScript",
+      "Tailwind CSS",
+      "API Integration",
+      "Responsive UI",
+    ],
+    features: [
+      "AI Chat Interface",
+      "Real-time Conversations",
+      "Responsive Design",
+      "Modern UI Components",
+      "Fast Response Handling",
+    ],
+    stats: {
+      duration: "2 Weeks",
+      team: "Solo",
+      commits: "100+",
+      status: "Live",
+    },
+    gradient: ["from-cyan-500", "to-blue-600"],
+    github: "https://github.com/prathameshdande/PrathsGPT-App.git",
+    live: "https://praths-gpt-app.vercel.app/",
+  },
+  {
+    id: 6,
+    featured: true,
+    title: "Admin Panel",
+    subtitle: "Admin Dashboard",
+    description:
+      "A responsive admin dashboard built for managing users, content, and application data through a clean interface with reusable UI components and structured navigation.",
+    image: AdminDashboard,
+    preview: "/projects/admin-panel.mp4",
+    tech: [
+      "React",
+      "JavaScript",
+      "Tailwind CSS",
+      "Dashboard UI",
+      "Responsive Design",
+    ],
+    features: [
+      "Admin Dashboard",
+      "User Management",
+      "Data Overview",
+      "Reusable Components",
+      "Responsive Layout",
+    ],
+    stats: {
+      duration: "2 Weeks",
+      team: "Solo",
+      commits: "70+",
+      status: "Live",
+    },
+    gradient: ["from-blue-600", "to-indigo-500"],
+    github: "https://github.com/prathameshdande/Admin-panel",
+    live: "https://admin-panel-eight-iota-49.vercel.app/",
   },
 ];
 

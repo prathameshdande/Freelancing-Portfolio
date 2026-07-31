@@ -1,25 +1,24 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, CheckCircle2, ExternalLink } from "lucide-react";
+import { CheckCircle2, ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
+import { useState } from "react";
 
+// Fallback placeholder (you can replace with your own)
+const PLACEHOLDER_IMAGE =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450' viewBox='0 0 800 450'%3E%3Crect width='800' height='450' fill='%23e2e8f0'/%3E%3Ctext x='400' y='225' font-family='system-ui' font-size='24' fill='%2394a3b8' text-anchor='middle' dominant-baseline='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
 
 export default function FeaturedProjectCard({ project, reverse = false }) {
+  const [imgSrc, setImgSrc] = useState(project.image);
+  const [videoFallback, setVideoFallback] = useState(false);
+
+  const handleImageError = () => setImgSrc(PLACEHOLDER_IMAGE);
+
   return (
     <motion.div
-      initial={{
-        opacity: 0,
-        y: 80,
-      }}
-      whileInView={{
-        opacity: 1,
-        y: 0,
-      }}
-      viewport={{
-        once: true,
-      }}
-      transition={{
-        duration: 0.7,
-      }}
+      initial={{ opacity: 0, y: 80 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7 }}
       whileHover={{
         y: -10,
         rotateX: 4,
@@ -33,7 +32,7 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
         lg:grid-cols-2
         ${reverse ? "lg:[&>*:first-child]:order-2" : ""}
       `}>
-      {/* Left Side - Screenshot */}
+      {/* Left Side – Screenshot */}
       <div className="group relative">
         {/* Gradient Glow */}
         <div
@@ -106,12 +105,14 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
 
           {/* Video or Image */}
           <div className="relative overflow-hidden">
-            {project.preview ? (
+            {project.preview && !videoFallback ? (
               <video
+                poster={imgSrc}
                 autoPlay
                 muted
                 loop
                 playsInline
+                onError={() => setVideoFallback(true)}
                 className="
                   w-full
                   transition
@@ -119,16 +120,23 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
                   group-hover:scale-105
                 ">
                 <source src={project.preview} type="video/mp4" />
+                {/* If video source fails, the img inside will be shown */}
                 <img
-                  src={project.image}
+                  loading="lazy"
+                  decoding="async"
+                  src={imgSrc}
                   alt={project.title}
+                  onError={handleImageError}
                   className="w-full"
                 />
               </video>
             ) : (
               <img
-                src={project.image}
+                loading="lazy"
+                decoding="async"
+                src={imgSrc}
                 alt={project.title}
+                onError={handleImageError}
                 className="
                   w-full
                   transition
@@ -171,19 +179,22 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
               ● Live
             </div>
 
-            {/* Floating Tech Card */}
+            {/* Floating Tech Card – hidden on smaller screens to avoid overflow */}
             <motion.div
               animate={{
-                y: [0, -12, 0],
+                x:[40, 12, -40],
+                y: [14, -15, -20],
               }}
               transition={{
                 repeat: Infinity,
                 duration: 5,
               }}
               className="
+                hidden
+                sm:block
                 absolute
-                -top-6
-                -right-6
+                -top-5
+                -right-5
                 rounded-3xl
                 bg-white
                 dark:bg-slate-900
@@ -204,7 +215,7 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
         </div>
       </div>
 
-      {/* Right Side - Content */}
+      {/* Right Side – Content */}
       <div className="space-y-7">
         {/* Header */}
         <div>
@@ -339,25 +350,6 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
             <FaGithub size={18} />
             GitHub
           </a>
-
-          <button
-            className="
-              group
-              flex
-              items-center
-              gap-2
-              text-violet-600
-              dark:text-violet-400
-              font-semibold
-              transition-all
-              hover:gap-3
-            ">
-            Case Study
-            <ArrowUpRight
-              size={18}
-              className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
-            />
-          </button>
         </div>
       </div>
     </motion.div>
