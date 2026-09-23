@@ -5,6 +5,19 @@ import { FaGithub } from "react-icons/fa";
 const projectData = [
   {
     id: 1,
+    title: "Hushe Bandhu Jewellers",
+    description:
+      "A luxury jewellery platform & management system with live gold/silver rates, interactive calculator, and direct WhatsApp enquiry.",
+    image:
+      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1200",
+    category: "Full Stack",
+    featured: true,
+    technologies: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
+    github: "https://github.com/prathameshdande",
+    live: "https://hushe-bandhu-jewellers.netlify.app/",
+  },
+  {
+    id: 2,
     title: "Second Brain",
     description:
       "A productivity application that lets users save, organize and share YouTube, Twitter and web resources securely.",
@@ -17,7 +30,7 @@ const projectData = [
     live: "#",
   },
   {
-    id: 2,
+    id: 3,
     title: "GigFlow",
     description:
       "Freelance marketplace with authentication, gig management, bidding system and hiring workflow.",
@@ -26,10 +39,10 @@ const projectData = [
     featured: true,
     technologies: ["React", "Node", "MongoDB", "JWT", "Socket.io"],
     github: "https://github.com/prathameshdande",
-    live: "#",
+    live: "https://gigflow-rqw1.vercel.app",
   },
   {
-    id: 3,
+    id: 4,
     title: "Token Launchpad",
     description:
       "Web3 application for creating SPL Tokens and deploying Solana token launchpads.",
@@ -39,10 +52,10 @@ const projectData = [
     featured: false,
     technologies: ["Solana", "Web3.js", "SPL Token", "React"],
     github: "https://github.com/prathameshdande",
-    live: "#",
+    live: "https://solana-token-launchpad-five.vercel.app/",
   },
   {
-    id: 4,
+    id: 5,
     title: "Course Selling Platform",
     description:
       "Course marketplace with admin dashboard, authentication and payment-ready architecture.",
@@ -100,16 +113,19 @@ const ProjectsGallery = ({ isOpen, onClose }) => {
   return (
     <div
       className="fixed inset-0 z-[999] bg-black/50 backdrop-blur-sm overflow-y-auto"
-      onClick={onClose}>
+      onClick={onClose}
+    >
       <div
         className="min-h-screen py-8 px-4 flex items-start justify-center"
-        onClick={(e) => e.stopPropagation()}>
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="relative w-full max-w-7xl bg-[#FCFCFD] dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 p-6 md:p-8 my-8 max-h-[90vh] overflow-y-auto">
           {/* Close Button */}
           <button
             onClick={onClose}
             className="absolute top-4 right-4 p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 z-10"
-            aria-label="Close projects gallery">
+            aria-label="Close projects gallery"
+          >
             <X size={24} className="text-slate-900 dark:text-white" />
           </button>
 
@@ -153,7 +169,8 @@ const ProjectsGallery = ({ isOpen, onClose }) => {
                     selected === item
                       ? "bg-violet-600 text-white"
                       : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-violet-300 dark:hover:border-violet-600 text-slate-700 dark:text-slate-300"
-                  }`}>
+                  }`}
+                >
                   {item}
                 </button>
               ))}
@@ -165,7 +182,8 @@ const ProjectsGallery = ({ isOpen, onClose }) => {
             {filteredProjects.map((project) => (
               <div
                 key={project.id}
-                className="group rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                className="group rounded-3xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300"
+              >
                 <div className="relative">
                   <img
                     src={project.image}
@@ -205,7 +223,8 @@ const ProjectsGallery = ({ isOpen, onClose }) => {
                     {project.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="rounded-full bg-slate-100 dark:bg-slate-700 px-3 py-1 text-xs text-slate-600 dark:text-slate-300">
+                        className="rounded-full bg-slate-100 dark:bg-slate-700 px-3 py-1 text-xs text-slate-600 dark:text-slate-300"
+                      >
                         {tech}
                       </span>
                     ))}
@@ -216,7 +235,8 @@ const ProjectsGallery = ({ isOpen, onClose }) => {
                       href={project.live}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex-1 rounded-xl bg-violet-600 text-white py-3 flex justify-center items-center gap-2 hover:bg-violet-700 transition">
+                      className="flex-1 rounded-xl bg-violet-600 text-white py-3 flex justify-center items-center gap-2 hover:bg-violet-700 transition"
+                    >
                       <ExternalLink size={18} />
                       Live Demo
                     </a>
@@ -224,7 +244,8 @@ const ProjectsGallery = ({ isOpen, onClose }) => {
                       href={project.github}
                       target="_blank"
                       rel="noreferrer"
-                      className="rounded-xl border border-slate-200 dark:border-slate-700 px-5 flex items-center justify-center hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+                      className="rounded-xl border border-slate-200 dark:border-slate-700 px-5 flex items-center justify-center hover:bg-slate-50 dark:hover:bg-slate-700 transition"
+                    >
                       <FaGithub
                         size={20}
                         className="text-slate-700 dark:text-slate-300"

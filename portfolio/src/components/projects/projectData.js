@@ -1,12 +1,47 @@
 import gigflow from "../../assets/gigflow.png";
-import SecondBrain from "../../assets/SecondBrain.png"
-import walletAdapter from "../../assets/walletAdapter.png"
-import PrathsGPT from "../../assets/PrathsGPT.png"
-import AdminDashboard from "../../assets/AdminDashboard.png"
+import SecondBrain from "../../assets/SecondBrain.png";
+import walletAdapter from "../../assets/walletAdapter.png";
+import PrathsGPT from "../../assets/PrathsGPT.png";
+import AdminDashboard from "../../assets/AdminDashboard.png";
+import husheBandhu from "../../assets/husheBandhu.png";
 
 const projects = [
   {
     id: 1,
+    featured: true,
+    title: "Hushe Bandhu Jewellers",
+    subtitle: "MERN Jewellery & Retail Platform",
+    description:
+      "A production full-stack jewellery platform built for a legacy retail brand. Features real-time gold and silver market rate updates, interactive jewellery catalog, gold price calculator, direct WhatsApp enquiry routing, and an administrative inventory management dashboard.",
+    image: husheBandhu,
+    preview: null,
+    tech: [
+      "React",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "Tailwind CSS",
+      "Cloudinary",
+    ],
+    features: [
+      "Live Gold & Silver Rates",
+      "Jewellery Catalog & Filters",
+      "Interactive Gold Calculator",
+      "WhatsApp & Call Enquiry",
+      "Admin Inventory Dashboard",
+      "Responsive Luxury UI",
+    ],
+    stats: {
+      duration: "1 Month",
+      team: "Solo / Freelance",
+      commits: "120+",
+      status: "Live",
+    },
+    gradient: ["from-amber-500", "to-yellow-500"],
+    live: "https://hushe-bandhu-jewellers.netlify.app/",
+  },
+  {
+    id: 2,
     featured: true,
     title: "GigFlow",
     subtitle: "Freelance Marketplace",
@@ -29,10 +64,10 @@ const projects = [
     },
     gradient: ["from-violet-600", "to-cyan-500"],
     github: "https://github.com/prathameshdande/gigflow",
-    live: "gigflow-rqw1.vercel.app",
+    live: "https://gigflow-rqw1.vercel.app",
   },
   {
-    id: 2,
+    id: 3,
     featured: true,
     title: "Second Brain",
     subtitle: "Knowledge Management",
@@ -53,7 +88,7 @@ const projects = [
     live: "https://second-brainly-app.vercel.app/",
   },
   {
-    id: 3,
+    id: 4,
     featured: true,
     title: "Token Launchpad",
     subtitle: "Solana Web3",
@@ -74,7 +109,7 @@ const projects = [
     live: "https://solana-token-launchpad-five.vercel.app/",
   },
   {
-    id: 4,
+    id: 5,
     featured: true,
     title: "Solana Wallet Adapter",
     subtitle: "Web3 Wallet Integration",
@@ -111,7 +146,7 @@ const projects = [
     live: "https://wallet-adapter-iota.vercel.app/",
   },
   {
-    id: 5,
+    id: 6,
     featured: true,
     title: "PrathsGPT",
     subtitle: "AI Chat Application",
@@ -144,7 +179,7 @@ const projects = [
     live: "https://praths-gpt-app.vercel.app/",
   },
   {
-    id: 6,
+    id: 7,
     featured: true,
     title: "Admin Panel",
     subtitle: "Admin Dashboard",

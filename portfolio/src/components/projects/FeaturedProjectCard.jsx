@@ -31,7 +31,8 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
         gap-16
         lg:grid-cols-2
         ${reverse ? "lg:[&>*:first-child]:order-2" : ""}
-      `}>
+      `}
+    >
       {/* Left Side – Screenshot */}
       <div className="group relative">
         {/* Gradient Glow */}
@@ -82,7 +83,8 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
             dark:bg-slate-900/60
             backdrop-blur-xl
             shadow-2xl
-          ">
+          "
+        >
           {/* Browser Header */}
           <div
             className="
@@ -93,7 +95,8 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
               items-center
               px-5
               gap-3
-            ">
+            "
+          >
             <div className="w-3 h-3 rounded-full bg-red-500" />
             <div className="w-3 h-3 rounded-full bg-yellow-500" />
             <div className="w-3 h-3 rounded-full bg-green-500" />
@@ -118,7 +121,8 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
                   transition
                   duration-700
                   group-hover:scale-105
-                ">
+                "
+              >
                 <source src={project.preview} type="video/mp4" />
                 {/* If video source fails, the img inside will be shown */}
                 <img
@@ -175,14 +179,15 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
                 text-sm
                 font-semibold
                 shadow-lg
-              ">
+              "
+            >
               ● Live
             </div>
 
             {/* Floating Tech Card – hidden on smaller screens to avoid overflow */}
             <motion.div
               animate={{
-                x:[40, 12, -40],
+                x: [40, 12, -40],
                 y: [14, -15, -20],
               }}
               transition={{
@@ -203,7 +208,8 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
                 border
                 border-slate-200
                 dark:border-slate-700
-              ">
+              "
+            >
               <p className="text-xs text-slate-500 dark:text-slate-400">
                 Stack
               </p>
@@ -250,7 +256,8 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
                 font-medium
                 text-slate-700
                 dark:text-slate-300
-              ">
+              "
+            >
               {item}
             </span>
           ))}
@@ -300,56 +307,70 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
 
         {/* Buttons */}
         <div className="flex flex-wrap gap-4 pt-2">
-          <a
-            href={project.live}
-            target="_blank"
-            rel="noreferrer"
-            className="
-              group
-              flex
-              items-center
-              gap-2
-              rounded-xl
-              bg-gradient-to-r
-              from-violet-600
-              to-cyan-500
-              px-6
-              py-3
-              text-white
-              font-medium
-              shadow-lg
-              transition-all
-              hover:scale-105
-              hover:shadow-xl
-            ">
-            <ExternalLink size={18} />
-            Live Demo
-          </a>
+          {project.live && (
+            <a
+              href={
+                project.live.startsWith("http")
+                  ? project.live
+                  : `https://${project.live}`
+              }
+              target="_blank"
+              rel="noreferrer"
+              className="
+                group
+                flex
+                items-center
+                gap-2
+                rounded-xl
+                bg-gradient-to-r
+                from-violet-600
+                to-cyan-500
+                px-6
+                py-3
+                text-white
+                font-medium
+                shadow-lg
+                transition-all
+                hover:scale-105
+                hover:shadow-xl
+              "
+            >
+              <ExternalLink size={18} />
+              Live Demo
+            </a>
+          )}
 
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noreferrer"
-            className="
-              flex
-              items-center
-              gap-2
-              rounded-xl
-              border
-              border-slate-300
-              dark:border-slate-700
-              px-6
-              py-3
-              text-slate-700
-              dark:text-slate-300
-              transition-all
-              hover:bg-slate-100
-              dark:hover:bg-slate-800
-              hover:scale-105
-            ">
-            <FaGithub size={18} />
-            GitHub
-          </a>
+          {project.github && (
+            <a
+              href={
+                project.github.startsWith("http")
+                  ? project.github
+                  : `https://${project.github}`
+              }
+              target="_blank"
+              rel="noreferrer"
+              className="
+                flex
+                items-center
+                gap-2
+                rounded-xl
+                border
+                border-slate-300
+                dark:border-slate-700
+                px-6
+                py-3
+                text-slate-700
+                dark:text-slate-300
+                transition-all
+                hover:bg-slate-100
+                dark:hover:bg-slate-800
+                hover:scale-105
+              "
+            >
+              <FaGithub size={18} />
+              GitHub
+            </a>
+          )}
         </div>
       </div>
     </motion.div>

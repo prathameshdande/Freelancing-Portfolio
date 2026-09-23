@@ -2,33 +2,38 @@ import React from "react";
 import { ArrowRight } from "lucide-react";
 import SectionHeading from "../common/SectionHeading";
 import Button from "../common/Button";
+import husheBandhu from "../../assets/husheBandhu.png";
 
 const Projects = () => {
   const projects = [
     {
-      img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      title: "Digital Heroes - Performance App",
-      tags: ["Next.js", "Tailwind CSS", "PostgreSQL"],
-      desc: "Performance analytics dashboard for digital heroes to track and improve productivity.",
+      img: husheBandhu,
+      title: "Hushe Bandhu Jewellers",
+      tags: ["MERN Stack", "Tailwind CSS", "Cloudinary"],
+      desc: "Full-stack luxury jewellery platform with live metal rates, catalog showcase, and direct WhatsApp enquiry.",
+      link: "https://hushe-bandhu-jewellers.netlify.app/",
     },
     {
       img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       title: "GigFlow - Freelance Marketplace",
       tags: ["MERN Stack", "Socket.io", "JWT"],
       desc: "Full-stack freelance platform with real-time bids, hiring system and chat.",
+      link: "https://gigflow-rqw1.vercel.app",
     },
     {
       img: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       title: "Solana Token Launchpad",
       tags: ["Solana", "SPL Token", "Web3.js"],
       desc: "Token launchpad dApp with pool creation, vesting and on-chain transactions.",
+      link: "https://solana-token-launchpad-five.vercel.app/",
     },
   ];
 
   return (
     <section
       id="portfolio"
-      className="py-20 px-6 md:px-12 bg-[#fafafa] dark:bg-slate-900 transition-colors duration-200">
+      className="py-20 px-6 md:px-12 bg-[#fafafa] dark:bg-slate-900 transition-colors duration-200"
+    >
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 gap-4">
           <SectionHeading title="Featured Projects" align="left" />
@@ -41,7 +46,8 @@ const Projects = () => {
           {projects.map((p, i) => (
             <div
               key={i}
-              className="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all group">
+              className="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all group"
+            >
               <div className="h-48 overflow-hidden relative">
                 <img
                   src={p.img}
@@ -58,7 +64,8 @@ const Projects = () => {
                   {p.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-[10px] font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2.5 py-1 rounded-md">
+                      className="text-[10px] font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2.5 py-1 rounded-md"
+                    >
                       {tag}
                     </span>
                   ))}
@@ -67,9 +74,12 @@ const Projects = () => {
                   {p.desc}
                 </p>
                 <a
-                  href="#"
-                  className="inline-flex items-center text-sm font-semibold text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 transition-colors">
-                  View Case Study <ArrowRight size={14} className="ml-1" />
+                  href={p.link || "#"}
+                  target={p.link ? "_blank" : "_self"}
+                  rel={p.link ? "noreferrer" : undefined}
+                  className="inline-flex items-center text-sm font-semibold text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 transition-colors"
+                >
+                  View Live Site <ArrowRight size={14} className="ml-1" />
                 </a>
               </div>
             </div>
