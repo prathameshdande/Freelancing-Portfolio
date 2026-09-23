@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import { CheckCircle2, ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-// Fallback placeholder (you can replace with your own)
+// Fallback placeholder
 const PLACEHOLDER_IMAGE =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450' viewBox='0 0 800 450'%3E%3Crect width='800' height='450' fill='%23e2e8f0'/%3E%3Ctext x='400' y='225' font-family='system-ui' font-size='24' fill='%2394a3b8' text-anchor='middle' dominant-baseline='middle'%3ENo Image%3C/text%3E%3C/svg%3E";
 
@@ -11,62 +11,45 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
   const [imgSrc, setImgSrc] = useState(project.image);
   const [videoFallback, setVideoFallback] = useState(false);
 
+  useEffect(() => {
+    setImgSrc(project.image);
+  }, [project.image]);
+
   const handleImageError = () => setImgSrc(PLACEHOLDER_IMAGE);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 80 }}
+      initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.7 }}
-      whileHover={{
-        y: -10,
-        rotateX: 4,
-        rotateY: -4,
-        scale: 1.02,
-      }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className={`
         grid
         items-center
-        gap-16
+        gap-10
+        lg:gap-16
         lg:grid-cols-2
         ${reverse ? "lg:[&>*:first-child]:order-2" : ""}
       `}
     >
-      {/* Left Side – Screenshot */}
+      {/* Left Side – Screenshot Mockup */}
       <div className="group relative">
-        {/* Gradient Glow */}
+        {/* Subtle Ambient Glow */}
         <div
           className="
             absolute
-            -inset-4
-            rounded-[40px]
+            -inset-3
+            rounded-[36px]
             bg-gradient-to-r
             from-violet-500/20
-            via-cyan-400/20
-            to-fuchsia-500/20
-            blur-3xl
+            via-indigo-500/15
+            to-cyan-400/20
+            blur-2xl
             opacity-0
-            transition
+            group-hover:opacity-100
+            transition-opacity
             duration-500
-            group-hover:opacity-100
-          "
-        />
-
-        {/* Animated Gradient Border */}
-        <div
-          className="
-            absolute
-            -inset-[2px]
-            rounded-[34px]
-            bg-gradient-to-r
-            from-violet-600
-            via-cyan-500
-            to-fuchsia-500
-            opacity-0
-            group-hover:opacity-100
-            transition
-            duration-700
+            pointer-events-none
           "
         />
 
@@ -75,39 +58,52 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
           className="
             relative
             overflow-hidden
-            rounded-[32px]
+            rounded-2xl
+            sm:rounded-3xl
             border
-            border-slate-200
-            dark:border-slate-700
-            bg-white/60
-            dark:bg-slate-900/60
-            backdrop-blur-xl
-            shadow-2xl
+            border-slate-200/80
+            dark:border-slate-800
+            bg-white
+            dark:bg-slate-900
+            shadow-xl
+            group-hover:shadow-2xl
+            transition-all
+            duration-500
+            ease-out
+            group-hover:-translate-y-1.5
           "
         >
           {/* Browser Header */}
           <div
             className="
-              h-12
-              bg-slate-100
-              dark:bg-slate-900
+              h-11
+              bg-slate-100/90
+              dark:bg-slate-800/90
+              border-b
+              border-slate-200/70
+              dark:border-slate-700/70
               flex
               items-center
-              px-5
-              gap-3
+              px-4
+              gap-2.5
             "
           >
-            <div className="w-3 h-3 rounded-full bg-red-500" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500" />
-            <div className="w-3 h-3 rounded-full bg-green-500" />
-            <div className="flex-1" />
-            <div className="text-xs text-slate-400 dark:text-slate-500">
-              {project.title}
+            <div className="flex items-center gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-red-400/90" />
+              <div className="w-2.5 h-2.5 rounded-full bg-amber-400/90" />
+              <div className="w-2.5 h-2.5 rounded-full bg-emerald-400/90" />
+            </div>
+
+            {/* URL Bar simulation */}
+            <div className="mx-auto flex-1 max-w-[260px] px-3 py-1 rounded-md bg-white/80 dark:bg-slate-900/80 border border-slate-200/60 dark:border-slate-700/60 text-[11px] font-mono text-slate-400 dark:text-slate-500 truncate text-center">
+              {project.live
+                ? project.live.replace(/^https?:\/\//, "").replace(/\/$/, "")
+                : project.title}
             </div>
           </div>
 
-          {/* Video or Image */}
-          <div className="relative overflow-hidden">
+          {/* Media Container */}
+          <div className="relative overflow-hidden aspect-[16/10] bg-slate-100 dark:bg-slate-950">
             {project.preview && !videoFallback ? (
               <video
                 poster={imgSrc}
@@ -118,20 +114,23 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
                 onError={() => setVideoFallback(true)}
                 className="
                   w-full
-                  transition
+                  h-full
+                  object-cover
+                  object-top
+                  transition-transform
                   duration-700
+                  ease-out
                   group-hover:scale-105
                 "
               >
                 <source src={project.preview} type="video/mp4" />
-                {/* If video source fails, the img inside will be shown */}
                 <img
                   loading="lazy"
                   decoding="async"
                   src={imgSrc}
                   alt={project.title}
                   onError={handleImageError}
-                  className="w-full"
+                  className="w-full h-full object-cover object-top"
                 />
               </video>
             ) : (
@@ -143,119 +142,123 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
                 onError={handleImageError}
                 className="
                   w-full
-                  transition
+                  h-full
+                  object-cover
+                  object-top
+                  transition-transform
                   duration-700
+                  ease-out
                   group-hover:scale-105
                 "
               />
             )}
 
-            {/* Spotlight Effect */}
+            {/* Subtle Gradient Overlay on Hover */}
             <div
               className="
                 absolute
                 inset-0
-                bg-gradient-to-br
-                from-white/20
+                bg-gradient-to-t
+                from-black/30
+                via-transparent
                 to-transparent
                 opacity-0
                 group-hover:opacity-100
-                transition
-                duration-500
+                transition-opacity
+                duration-300
+                pointer-events-none
               "
             />
 
             {/* Live Badge */}
-            <div
-              className="
-                absolute
-                bottom-6
-                left-6
-                rounded-full
-                bg-green-500
-                text-white
-                px-4
-                py-2
-                text-sm
-                font-semibold
-                shadow-lg
-              "
-            >
-              ● Live
+            <div className="absolute bottom-4 left-4 z-10 inline-flex items-center gap-2 rounded-full bg-slate-950/80 dark:bg-black/80 backdrop-blur-md px-3.5 py-1.5 text-xs font-semibold text-white shadow-lg border border-white/10">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span>Live Project</span>
             </div>
 
-            {/* Floating Tech Card – hidden on smaller screens to avoid overflow */}
-            <motion.div
-              animate={{
-                x: [40, 12, -40],
-                y: [14, -15, -20],
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 5,
-              }}
-              className="
-                hidden
-                sm:block
-                absolute
-                -top-5
-                -right-5
-                rounded-3xl
-                bg-white
-                dark:bg-slate-900
-                shadow-xl
-                p-5
-                border
-                border-slate-200
-                dark:border-slate-700
-              "
-            >
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                Stack
-              </p>
-              <h3 className="font-bold text-slate-900 dark:text-white">
-                {project.tech.slice(0, 2).join(" + ")}
-              </h3>
-            </motion.div>
+            {/* Floating Tech Pill */}
+            {project.tech && project.tech.length > 0 && (
+              <motion.div
+                animate={{
+                  y: [-4, 4, -4],
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 4,
+                  ease: "easeInOut",
+                }}
+                className="
+                  hidden
+                  sm:flex
+                  items-center
+                  gap-2
+                  absolute
+                  top-4
+                  right-4
+                  z-10
+                  rounded-xl
+                  bg-white/90
+                  dark:bg-slate-900/90
+                  backdrop-blur-md
+                  shadow-xl
+                  px-3.5
+                  py-2
+                  border
+                  border-slate-200/80
+                  dark:border-slate-700/80
+                "
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-violet-500" />
+                <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+                  {project.tech.slice(0, 2).join(" • ")}
+                </span>
+              </motion.div>
+            )}
           </div>
         </div>
       </div>
 
       {/* Right Side – Content */}
-      <div className="space-y-7">
+      <div className="space-y-6">
         {/* Header */}
         <div>
-          <p className="font-semibold text-violet-600 dark:text-violet-400">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-50 dark:bg-violet-950/50 border border-violet-200/60 dark:border-violet-800/60 text-xs font-semibold text-violet-600 dark:text-violet-400 mb-3 tracking-wide">
             {project.subtitle}
-          </p>
-          <h2 className="mt-2 text-5xl font-black text-slate-900 dark:text-white">
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 dark:text-white leading-tight">
             {project.title}
           </h2>
         </div>
 
         {/* Description */}
-        <p className="leading-8 text-slate-500 dark:text-slate-400">
+        <p className="leading-relaxed text-slate-600 dark:text-slate-300 text-base sm:text-lg">
           {project.description}
         </p>
 
         {/* Tech Stack */}
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-2">
           {project.tech.map((item) => (
             <span
               key={item}
               className="
-                rounded-full
+                rounded-lg
                 border
                 border-slate-200
-                dark:border-slate-700
-                bg-white/70
-                dark:bg-slate-900/60
-                px-4
-                py-2
-                text-sm
+                dark:border-slate-800
+                bg-slate-100/70
+                dark:bg-slate-800/60
+                px-3
+                py-1.5
+                text-xs
                 font-medium
                 text-slate-700
                 dark:text-slate-300
+                hover:border-violet-400/50
+                dark:hover:border-violet-500/50
+                transition-colors
               "
             >
               {item}
@@ -264,49 +267,61 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
         </div>
 
         {/* Project Statistics */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Duration
-            </p>
-            <h3 className="font-bold text-slate-900 dark:text-white">
-              {project.stats.duration}
-            </h3>
+        {project.stats && (
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-800/60">
+            <div>
+              <p className="text-[11px] font-medium uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                Duration
+              </p>
+              <h3 className="font-bold text-sm text-slate-900 dark:text-white mt-0.5">
+                {project.stats.duration}
+              </h3>
+            </div>
+            <div>
+              <p className="text-[11px] font-medium uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                Commits
+              </p>
+              <h3 className="font-bold text-sm text-slate-900 dark:text-white mt-0.5">
+                {project.stats.commits}
+              </h3>
+            </div>
+            <div>
+              <p className="text-[11px] font-medium uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                Team
+              </p>
+              <h3 className="font-bold text-sm text-slate-900 dark:text-white mt-0.5">
+                {project.stats.team}
+              </h3>
+            </div>
+            <div>
+              <p className="text-[11px] font-medium uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                Status
+              </p>
+              <h3 className="font-bold text-sm text-emerald-500 dark:text-emerald-400 mt-0.5 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                {project.stats.status}
+              </h3>
+            </div>
           </div>
-          <div>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Commits
-            </p>
-            <h3 className="font-bold text-slate-900 dark:text-white">
-              {project.stats.commits}
-            </h3>
-          </div>
-          <div>
-            <p className="text-xs text-slate-500 dark:text-slate-400">Team</p>
-            <h3 className="font-bold text-slate-900 dark:text-white">
-              {project.stats.team}
-            </h3>
-          </div>
-          <div>
-            <p className="text-xs text-slate-500 dark:text-slate-400">Status</p>
-            <h3 className="font-bold text-green-500">{project.stats.status}</h3>
-          </div>
-        </div>
+        )}
 
         {/* Features */}
-        <div className="grid grid-cols-2 gap-4">
-          {project.features.map((feature) => (
-            <div key={feature} className="flex items-center gap-3">
-              <CheckCircle2 className="text-emerald-500" size={20} />
-              <span className="text-slate-700 dark:text-slate-300">
-                {feature}
-              </span>
-            </div>
-          ))}
-        </div>
+        {project.features && (
+          <div className="grid sm:grid-cols-2 gap-2.5 pt-1">
+            {project.features.map((feature) => (
+              <div
+                key={feature}
+                className="flex items-center gap-2.5 text-sm text-slate-700 dark:text-slate-300"
+              >
+                <CheckCircle2 className="text-emerald-500 shrink-0" size={17} />
+                <span>{feature}</span>
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Buttons */}
-        <div className="flex flex-wrap gap-4 pt-2">
+        <div className="flex flex-wrap items-center gap-4 pt-3">
           {project.live && (
             <a
               href={
@@ -318,24 +333,33 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
               rel="noreferrer"
               className="
                 group
-                flex
+                inline-flex
                 items-center
-                gap-2
+                gap-2.5
                 rounded-xl
                 bg-gradient-to-r
                 from-violet-600
-                to-cyan-500
+                to-indigo-600
+                hover:from-violet-500
+                hover:to-indigo-500
                 px-6
-                py-3
+                py-3.5
                 text-white
-                font-medium
+                font-semibold
+                text-sm
                 shadow-lg
+                shadow-violet-600/20
+                hover:shadow-violet-600/35
                 transition-all
-                hover:scale-105
-                hover:shadow-xl
+                duration-200
+                hover:-translate-y-0.5
+                active:translate-y-0
               "
             >
-              <ExternalLink size={18} />
+              <ExternalLink
+                size={17}
+                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
               Live Demo
             </a>
           )}
@@ -350,24 +374,36 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
               target="_blank"
               rel="noreferrer"
               className="
-                flex
+                group
+                inline-flex
                 items-center
-                gap-2
+                gap-2.5
                 rounded-xl
                 border
                 border-slate-300
                 dark:border-slate-700
+                bg-white
+                dark:bg-slate-800
+                hover:bg-slate-50
+                dark:hover:bg-slate-700/80
                 px-6
-                py-3
-                text-slate-700
-                dark:text-slate-300
+                py-3.5
+                text-slate-800
+                dark:text-slate-200
+                font-semibold
+                text-sm
+                shadow-sm
+                hover:shadow
                 transition-all
-                hover:bg-slate-100
-                dark:hover:bg-slate-800
-                hover:scale-105
+                duration-200
+                hover:-translate-y-0.5
+                active:translate-y-0
               "
             >
-              <FaGithub size={18} />
+              <FaGithub
+                size={17}
+                className="transition-transform group-hover:scale-110"
+              />
               GitHub
             </a>
           )}
