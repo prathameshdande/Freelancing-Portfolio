@@ -18,7 +18,7 @@ export default function Highlights() {
   const milestones = [
     {
       icon: "🚀",
-      text: "Built 50+ Projects",
+      text: "Built 5+ Projects",
       color: "from-violet-500 to-purple-500",
     },
     {

@@ -100,7 +100,7 @@ const features = [
 const stats = [
   {
     icon: Briefcase,
-    number: "50+",
+    number: "5+",
     label: "Projects Completed",
     gradient: "from-violet-600 to-indigo-500",
   },
