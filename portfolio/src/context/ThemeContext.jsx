@@ -17,11 +17,15 @@ export const ThemeProvider = ({ children }) => {
     if (isDarkMode) {
       document.documentElement.classList.add("dark");
       document.body.classList.add("dark");
-      document.body.style.backgroundColor = "#0f172a";
+      document.documentElement.style.colorScheme = "dark";
+      document.body.style.backgroundColor = "#0b0f19";
+      document.body.style.color = "#f8fafc";
     } else {
       document.documentElement.classList.remove("dark");
       document.body.classList.remove("dark");
-      document.body.style.backgroundColor = "";
+      document.documentElement.style.colorScheme = "light";
+      document.body.style.backgroundColor = "#f8fafc";
+      document.body.style.color = "#0f172a";
     }
   }, [isDarkMode]);
 

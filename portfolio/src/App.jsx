@@ -1,37 +1,55 @@
 import React from "react";
 import { ThemeProvider } from "./context/ThemeContext";
+
 import Navbar from "./components/layout/Navbar";
 import Hero from "./components/sections/Hero";
-import TrustedBy from "./components/sections/TrustedBy";
-import WhyHireMe from "./components/sections/WhyHireMe";
+import TechStrip from "./components/sections/TechStrip";
 import Services from "./components/sections/Services";
-import SkillsSection from "./components/skills/SkillsSection";
-import Journey from "./components/journey/Journey";
-import Highlights from "./components/highlights/Highlights";
-import Process from "./components/sections/Process";
-import FeaturedProjects from "./components/projects/FeaturedProjects";
-import Testimonials from "./components/sections/Testimonials";
-import ContactCTA from "./components/contact/ContactCTA";
+import FeaturedProject from "./components/projects/FeaturedProject";
+import OtherProjects from "./components/projects/OtherProjects";
+import About from "./components/sections/About";
+import DevelopmentProcess from "./components/sections/DevelopmentProcess";
+import WhyWorkWithMe from "./components/sections/WhyWorkWithMe";
+import ContactSection from "./components/sections/ContactSection";
 import Footer from "./components/footer/Footer";
+
 import "./styles/index.css";
-import "./styles/dark-mode.css";
 
 function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-white dark:bg-slate-900 font-sans text-slate-900 dark:text-white selection:bg-violet-200 selection:text-violet-900 dark:selection:bg-violet-900 dark:selection:text-violet-200 transition-colors duration-200">
+      <div className="min-h-screen bg-slate-50 dark:bg-[#0b0f19] font-sans text-slate-900 dark:text-slate-100 selection:bg-violet-600 selection:text-white transition-colors duration-200 overflow-x-hidden">
+        {/* 1. Sticky Navigation */}
         <Navbar />
+
+        {/* 2. Hero Section */}
         <Hero />
-        <TrustedBy />
-        <WhyHireMe />
+
+        {/* 3. Technology / Expertise Strip */}
+        <TechStrip />
+
+        {/* 4. Services Section */}
         <Services />
-        <SkillsSection />
-        <Journey />
-        <Highlights />
-        <Process />
-        <FeaturedProjects />
-        <Testimonials />
-        <ContactCTA />
+
+        {/* 5. Featured Project Showcase: Hushe Bandhu Jewellers */}
+        <FeaturedProject />
+
+        {/* 6. Other Selected Projects */}
+        <OtherProjects />
+
+        {/* 7. About Me Section */}
+        <About />
+
+        {/* 8. 5-Step Development Process */}
+        <DevelopmentProcess />
+
+        {/* 9. Why Work With Me (Built With Purpose) */}
+        <WhyWorkWithMe />
+
+        {/* 10. Contact / Start a Project */}
+        <ContactSection />
+
+        {/* 11. Minimal Footer */}
         <Footer />
       </div>
     </ThemeProvider>
