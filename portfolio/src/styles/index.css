@@ -9,19 +9,31 @@
    BASE STYLES
 ========================================== */
 @layer base {
-  * {
-    transition-property: background-color, border-color, color, fill, stroke;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 200ms;
-  }
-
   html {
     scroll-behavior: smooth;
+  }
+
+  body {
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 
   .dark {
     color-scheme: dark;
   }
+}
+
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-float-gentle {
+  animation: floatGentle 4s ease-in-out infinite;
+  will-change: transform;
 }
 
 /* ==========================================

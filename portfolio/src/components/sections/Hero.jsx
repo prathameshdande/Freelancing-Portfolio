@@ -60,7 +60,7 @@ const fadeRight = {
 const stats = [
   {
     icon: Briefcase,
-    value: "6+",
+    value: "7+",
     label: "Projects",
   },
   {
@@ -90,7 +90,23 @@ const techStack = [
 
 export default function Hero() {
   const [openModal, setOpenModal] = useState(false);
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const glowRef = React.useRef(null);
+
+  const handleMouseMove = React.useCallback((e) => {
+    if (!glowRef.current) return;
+    glowRef.current.style.transform = `translate3d(${e.clientX - 200}px, ${e.clientY - 200}px, 0)`;
+  }, []);
+
+  const particles = React.useMemo(
+    () =>
+      Array.from({ length: 12 }, (_, i) => ({
+        id: i,
+        left: `${(i * 8.3 + 4) % 100}%`,
+        top: `${((i * 17.5 + 10) % 90) + 5}%`,
+        duration: 4 + (i % 4),
+      })),
+    [],
+  );
 
   return (
     <motion.section
@@ -98,37 +114,35 @@ export default function Hero() {
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
       className="relative overflow-hidden bg-[#fafafa] dark:bg-slate-900 transition-colors duration-200 min-h-screen"
-      onMouseMove={(e) => {
-        setMouse({
-          x: e.clientX,
-          y: e.clientY,
-        });
-      }}>
-      {/* Mouse Glow - Hidden on mobile */}
+      onMouseMove={handleMouseMove}
+    >
+      {/* Mouse Glow - Hardware accelerated direct DOM transform */}
       <div
+        ref={glowRef}
         style={{
-          left: mouse.x - 200,
-          top: mouse.y - 200,
+          transform: "translate3d(-500px, -500px, 0)",
+          willChange: "transform",
         }}
-        className="pointer-events-none fixed w-[400px] h-[400px] rounded-full bg-violet-500/10 blur-[120px] transition-all duration-300 z-0 hidden md:block"
+        className="pointer-events-none fixed top-0 left-0 w-[400px] h-[400px] rounded-full bg-violet-500/10 blur-[120px] transition-transform duration-100 ease-out z-0 hidden md:block"
       />
 
-      {/* Floating Particles */}
+      {/* Floating Particles - Memoized to prevent recalculation */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none hidden md:block">
-        {[...Array(18)].map((_, i) => (
+        {particles.map((p) => (
           <motion.div
-            key={i}
+            key={p.id}
             animate={{
-              y: [0, -40, 0],
-              opacity: [0.2, 1, 0.2],
+              y: [0, -30, 0],
+              opacity: [0.2, 0.8, 0.2],
             }}
             transition={{
               repeat: Infinity,
-              duration: 4 + i,
+              duration: p.duration,
+              ease: "easeInOut",
             }}
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: p.left,
+              top: p.top,
             }}
             className="absolute h-1.5 w-1.5 rounded-full bg-violet-400/30"
           />
@@ -149,7 +163,8 @@ export default function Hero() {
             variants={containerVariants}
             initial="hidden"
             animate="show"
-            className="space-y-6 md:space-y-8">
+            className="space-y-6 md:space-y-8"
+          >
             {/* 1. Availability Badge */}
             <motion.div variants={fadeUp}>
               <div className="inline-flex items-center gap-2 sm:gap-3 rounded-full border border-slate-200/80 dark:border-slate-700/80 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl px-3 sm:px-5 py-1.5 sm:py-2 shadow-lg">
@@ -179,7 +194,8 @@ export default function Hero() {
             {/* 3. Description */}
             <motion.p
               variants={fadeUp}
-              className="text-sm sm:text-base md:text-lg leading-6 sm:leading-7 md:leading-8 text-slate-600 dark:text-slate-400 max-w-xl">
+              className="text-sm sm:text-base md:text-lg leading-6 sm:leading-7 md:leading-8 text-slate-600 dark:text-slate-400 max-w-xl"
+            >
               Hi, I'm{" "}
               <span className="font-semibold text-slate-900 dark:text-white">
                 Prathamesh Dande
@@ -193,11 +209,13 @@ export default function Hero() {
             <motion.div
               variants={fadeUp}
               className="flex flex-wrap gap-2 sm:gap-3 overflow-x-auto pb-2 scrollbar-hide"
-              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            >
               {techStack.slice(0, 6).map((tech) => (
                 <span
                   key={tech}
-                  className="whitespace-nowrap rounded-full border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl px-3 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 transition-all duration-300 hover:-translate-y-1 md:hover:-translate-y-2 hover:border-violet-500 hover:shadow-2xl">
+                  className="whitespace-nowrap rounded-full border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl px-3 sm:px-4 py-1 sm:py-2 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 transition-all duration-300 hover:-translate-y-1 md:hover:-translate-y-2 hover:border-violet-500 hover:shadow-2xl"
+                >
                   {tech}
                 </span>
               ))}
@@ -211,10 +229,12 @@ export default function Hero() {
             {/* 5. CTA Buttons */}
             <motion.div
               variants={fadeUp}
-              className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1 sm:pt-2">
+              className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1 sm:pt-2"
+            >
               <Button
                 onClick={() => setOpenModal(true)}
-                className="group relative overflow-hidden px-5 sm:px-7 py-3 sm:py-4 text-sm sm:text-base">
+                className="group relative overflow-hidden px-5 sm:px-7 py-3 sm:py-4 text-sm sm:text-base"
+              >
                 <span className="absolute inset-0 translate-x-[-100%] bg-white/20 transition-transform duration-700 group-hover:translate-x-[100%]" />
                 <Rocket className="mr-1 sm:mr-2 h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-300 group-hover:-translate-y-1" />
                 <span className="hidden xs:inline">Hire Me</span>
@@ -225,7 +245,8 @@ export default function Hero() {
               <Button
                 variant="secondary"
                 className="px-5 sm:px-7 py-3 sm:py-4 text-sm sm:text-base"
-                onClick={() => window.open(Prathamesh_Dande_Resume, "_blank")}>
+                onClick={() => window.open(Prathamesh_Dande_Resume, "_blank")}
+              >
                 <Download className="mr-1 sm:mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                 <span className="hidden xs:inline">Resume</span>
                 <span className="inline xs:hidden">CV</span>
@@ -235,7 +256,8 @@ export default function Hero() {
             {/* 6. Quick Highlights */}
             <motion.div
               variants={fadeUp}
-              className="flex flex-wrap gap-3 sm:gap-6 pt-2 sm:pt-3">
+              className="flex flex-wrap gap-3 sm:gap-6 pt-2 sm:pt-3"
+            >
               <div className="flex items-center gap-1.5 sm:gap-2">
                 <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-500" />
                 <span className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
@@ -259,13 +281,15 @@ export default function Hero() {
             {/* 7. Statistics */}
             <motion.div
               variants={fadeUp}
-              className="grid grid-cols-2 xs:grid-cols-3 gap-3 sm:gap-5 pt-6 sm:pt-10">
+              className="grid grid-cols-2 xs:grid-cols-3 gap-3 sm:gap-5 pt-6 sm:pt-10"
+            >
               {stats.slice(0, 3).map((item) => {
                 const Icon = item.icon;
                 return (
                   <div
                     key={item.label}
-                    className="rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl p-4 sm:p-6 transition-all duration-300 hover:-translate-y-1 sm:hover:-translate-y-2 hover:shadow-2xl">
+                    className="rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl p-4 sm:p-6 transition-all duration-300 hover:-translate-y-1 sm:hover:-translate-y-2 hover:shadow-2xl"
+                  >
                     <div className="flex justify-between items-center">
                       <Icon className="text-violet-600" size={20} />
                       <span className="text-xl sm:text-3xl font-black text-slate-900 dark:text-white">
@@ -286,7 +310,8 @@ export default function Hero() {
             variants={fadeRight}
             initial="hidden"
             animate="show"
-            className="relative flex justify-center mt-8 md:mt-0">
+            className="relative flex justify-center mt-8 md:mt-0"
+          >
             {/* This container holds the profile card + all floating cards */}
             <div className="relative w-fit">
               {/* Glow behind profile */}
@@ -315,7 +340,8 @@ export default function Hero() {
                   duration: 5,
                   ease: "easeInOut",
                 }}
-                className="absolute -left-6 sm:-left-10 md:-left-14 top-1/2 -translate-y-1/2 z-30 rounded-2xl border border-white/20 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl px-4 sm:px-5 py-3 sm:py-4 shadow-xl hidden lg:block">
+                className="absolute -left-6 sm:-left-10 md:-left-14 top-1/2 -translate-y-1/2 z-30 rounded-2xl border border-white/20 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl px-4 sm:px-5 py-3 sm:py-4 shadow-xl hidden lg:block"
+              >
                 <p className="text-xs text-slate-500 dark:text-slate-400">
                   Blockchain
                 </p>
@@ -332,7 +358,8 @@ export default function Hero() {
                   duration: 6,
                   ease: "easeInOut",
                 }}
-                className="absolute -right-6 sm:-right-10 md:-right-14 bottom-1/4 z-30 rounded-3xl border border-white/20 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl p-4 sm:p-5 shadow-2xl hidden lg:block">
+                className="absolute -right-6 sm:-right-10 md:-right-14 bottom-1/4 z-30 rounded-3xl border border-white/20 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl p-4 sm:p-5 shadow-2xl hidden lg:block"
+              >
                 <div className="space-y-2">
                   <p className="text-xs text-slate-500 dark:text-slate-400">
                     GitHub
@@ -363,7 +390,8 @@ export default function Hero() {
                   duration: 5,
                   ease: "easeInOut",
                 }}
-                className="absolute -left-6 sm:-left-10 md:-left-14 bottom-8 sm:bottom-12 z-30 rounded-2xl border border-white/20 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl px-4 sm:px-5 py-3 sm:py-4 shadow-xl hidden md:block">
+                className="absolute -left-6 sm:-left-10 md:-left-14 bottom-8 sm:bottom-12 z-30 rounded-2xl border border-white/20 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl px-4 sm:px-5 py-3 sm:py-4 shadow-xl hidden md:block"
+              >
                 <p className="text-xs text-slate-500 dark:text-slate-400">
                   Dande
                 </p>
@@ -381,7 +409,8 @@ export default function Hero() {
                   duration: 4,
                   ease: "easeInOut",
                 }}
-                className="absolute -right-6 sm:-right-10 md:-right-14 top-1/4 z-30 rounded-2xl border border-white/20 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl px-4 sm:px-5 py-3 sm:py-4 shadow-xl hidden lg:block">
+                className="absolute -right-6 sm:-right-10 md:-right-14 top-1/4 z-30 rounded-2xl border border-white/20 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl px-4 sm:px-5 py-3 sm:py-4 shadow-xl hidden lg:block"
+              >
                 <p className="text-xs text-slate-500 dark:text-slate-400">
                   CURRENT FOCUS
                 </p>
@@ -398,7 +427,8 @@ export default function Hero() {
                   duration: 6,
                   ease: "easeInOut",
                 }}
-                className="absolute -right-6 sm:-right-10 md:-right-14 bottom-1/3 z-30 rounded-2xl border border-white/20 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl px-4 sm:px-5 py-3 sm:py-4 shadow-xl hidden lg:block">
+                className="absolute -right-6 sm:-right-10 md:-right-14 bottom-1/3 z-30 rounded-2xl border border-white/20 bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl px-4 sm:px-5 py-3 sm:py-4 shadow-xl hidden lg:block"
+              >
                 <p className="text-xs text-slate-500 dark:text-slate-400">
                   Projects
                 </p>
@@ -416,7 +446,8 @@ export default function Hero() {
                   duration: 5,
                   ease: "easeInOut",
                 }}
-                className="absolute -right-4 sm:-right-6 md:-right-8 top-8 sm:top-10 z-30 rounded-2xl bg-emerald-500 text-white px-4 sm:px-6 py-3 sm:py-4 shadow-xl hidden sm:block">
+                className="absolute -right-4 sm:-right-6 md:-right-8 top-8 sm:top-10 z-30 rounded-2xl bg-emerald-500 text-white px-4 sm:px-6 py-3 sm:py-4 shadow-xl hidden sm:block"
+              >
                 <div className="text-xs sm:text-sm">Available</div>
                 <div className="text-sm sm:text-base md:text-lg font-bold">
                   For Work
@@ -431,7 +462,8 @@ export default function Hero() {
                   duration: 5,
                   ease: "easeInOut",
                 }}
-                className="absolute -bottom-8 sm:-bottom-10 left-6 sm:left-10 z-40 w-56 sm:w-64 md:w-72 rounded-2xl sm:rounded-3xl border border-white/20 bg-slate-950 shadow-2xl overflow-hidden hidden sm:block">
+                className="absolute -bottom-8 sm:-bottom-10 left-6 sm:left-10 z-40 w-56 sm:w-64 md:w-72 rounded-2xl sm:rounded-3xl border border-white/20 bg-slate-950 shadow-2xl overflow-hidden hidden sm:block"
+              >
                 <div className="flex gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-3 bg-slate-900">
                   <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-red-500" />
                   <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-yellow-500" />
@@ -457,7 +489,8 @@ export default function Hero() {
                   duration: 6,
                   ease: "easeInOut",
                 }}
-                className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 md:-top-6 md:-right-6 z-40">
+                className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 md:-top-6 md:-right-6 z-40"
+              >
                 <div className="rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-500 p-3 sm:p-4 md:p-5 shadow-2xl">
                   <Rocket className="text-white" size={16} />
                 </div>
@@ -475,7 +508,8 @@ export default function Hero() {
                   type: "spring",
                   stiffness: 180,
                 }}
-                className="relative z-20 w-[280px] sm:w-[320px] md:w-[360px] rounded-[24px] sm:rounded-[28px] md:rounded-[32px] border border-white/20 dark:border-slate-700 bg-white/60 dark:bg-slate-900/50 backdrop-blur-2xl shadow-2xl overflow-hidden">
+                className="relative z-20 w-[280px] sm:w-[320px] md:w-[360px] rounded-[24px] sm:rounded-[28px] md:rounded-[32px] border border-white/20 dark:border-slate-700 bg-white/60 dark:bg-slate-900/50 backdrop-blur-2xl shadow-2xl overflow-hidden"
+              >
                 {/* Glass Reflection */}
                 <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden hidden md:block">
                   <div className="absolute -top-20 -left-24 w-72 h-72 rotate-12 bg-white/20 blur-3xl" />
@@ -574,7 +608,8 @@ export default function Hero() {
                         .map((item) => (
                           <span
                             key={item}
-                            className="rounded-full bg-violet-500/10 px-2 sm:px-3 py-1 sm:py-2 text-[10px] sm:text-xs md:text-sm font-medium text-violet-600 dark:text-violet-400">
+                            className="rounded-full bg-violet-500/10 px-2 sm:px-3 py-1 sm:py-2 text-[10px] sm:text-xs md:text-sm font-medium text-violet-600 dark:text-violet-400"
+                          >
                             {item}
                           </span>
                         ))}
@@ -606,7 +641,8 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center">
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center"
+      >
         <span className="mb-2 text-xs tracking-[0.3em] uppercase text-slate-500 dark:text-slate-400">
           Scroll
         </span>

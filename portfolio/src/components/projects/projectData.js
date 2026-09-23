@@ -38,7 +38,7 @@ const projects = [
       status: "Live",
     },
     gradient: ["from-amber-500", "to-yellow-500"],
-    live: "https://hushe-bandhu-jewellers.netlify.app/",
+    live: "https://hushe-bandhu-jewellers.vercel.app/",
   },
   {
     id: 2,
@@ -95,7 +95,7 @@ const projects = [
     description:
       "Launch SPL tokens on Solana with wallet integration, minting, metadata management, and on-chain transactions.",
     image: "/projects/tokenlaunchpad.png",
-    preview: "/projects/tokenlaunchpad.mp4",
+    preview: null,
     tech: ["React", "Solana", "Web3.js", "Tailwind"],
     features: ["Wallet Adapter", "Mint Tokens", "Metadata", "On-chain"],
     stats: {
@@ -116,7 +116,7 @@ const projects = [
     description:
       "A decentralized Web3 application that integrates Solana Wallet Adapter to enable secure wallet authentication and seamless blockchain interactions. Users can connect Phantom and other Solana-compatible wallets, view wallet information, and perform on-chain transactions through an intuitive React interface.",
     image: walletAdapter,
-    preview: "/projects/walletadapter.mp4",
+    preview: null,
     tech: [
       "React",
       "Solana Web3.js",
@@ -153,7 +153,7 @@ const projects = [
     description:
       "A modern AI chat application built with React and integrated with a conversational interface for generating fast, interactive responses in a clean and responsive UI.",
     image: PrathsGPT,
-    preview: "/projects/prathsgpt.mp4",
+    preview: null,
     tech: [
       "React",
       "JavaScript",
@@ -186,7 +186,7 @@ const projects = [
     description:
       "A responsive admin dashboard built for managing users, content, and application data through a clean interface with reusable UI components and structured navigation.",
     image: AdminDashboard,
-    preview: "/projects/admin-panel.mp4",
+    preview: null,
     tech: [
       "React",
       "JavaScript",

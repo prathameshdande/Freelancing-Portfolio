@@ -9,7 +9,6 @@ const PLACEHOLDER_IMAGE =
 
 export default function FeaturedProjectCard({ project, reverse = false }) {
   const [imgSrc, setImgSrc] = useState(project.image);
-  const [videoFallback, setVideoFallback] = useState(false);
 
   useEffect(() => {
     setImgSrc(project.image);
@@ -19,15 +18,16 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 35 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      style={{ willChange: "transform, opacity" }}
       className={`
         grid
         items-center
-        gap-10
-        lg:gap-16
+        gap-8
+        lg:gap-14
         lg:grid-cols-2
         ${reverse ? "lg:[&>*:first-child]:order-2" : ""}
       `}
@@ -38,50 +38,51 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
         <div
           className="
             absolute
-            -inset-3
-            rounded-[36px]
+            -inset-2
+            rounded-3xl
             bg-gradient-to-r
-            from-violet-500/20
-            via-indigo-500/15
-            to-cyan-400/20
-            blur-2xl
+            from-violet-500/15
+            via-indigo-500/10
+            to-cyan-400/15
+            blur-xl
             opacity-0
             group-hover:opacity-100
             transition-opacity
-            duration-500
+            duration-300
             pointer-events-none
           "
         />
 
         {/* Browser Frame */}
         <div
+          style={{ willChange: "transform" }}
           className="
             relative
             overflow-hidden
             rounded-2xl
             sm:rounded-3xl
             border
-            border-slate-200/80
+            border-slate-200/90
             dark:border-slate-800
             bg-white
             dark:bg-slate-900
-            shadow-xl
+            shadow-lg
             group-hover:shadow-2xl
             transition-all
-            duration-500
+            duration-300
             ease-out
-            group-hover:-translate-y-1.5
+            group-hover:-translate-y-1
           "
         >
           {/* Browser Header */}
           <div
             className="
-              h-11
-              bg-slate-100/90
-              dark:bg-slate-800/90
+              h-10
+              bg-slate-100/95
+              dark:bg-slate-800/95
               border-b
-              border-slate-200/70
-              dark:border-slate-700/70
+              border-slate-200/80
+              dark:border-slate-700/80
               flex
               items-center
               px-4
@@ -95,7 +96,7 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
             </div>
 
             {/* URL Bar simulation */}
-            <div className="mx-auto flex-1 max-w-[260px] px-3 py-1 rounded-md bg-white/80 dark:bg-slate-900/80 border border-slate-200/60 dark:border-slate-700/60 text-[11px] font-mono text-slate-400 dark:text-slate-500 truncate text-center">
+            <div className="mx-auto flex-1 max-w-[260px] px-3 py-0.5 rounded-md bg-white/90 dark:bg-slate-900/90 border border-slate-200/70 dark:border-slate-700/70 text-[11px] font-mono text-slate-400 dark:text-slate-500 truncate text-center select-none">
               {project.live
                 ? project.live.replace(/^https?:\/\//, "").replace(/\/$/, "")
                 : project.title}
@@ -104,54 +105,23 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
 
           {/* Media Container */}
           <div className="relative overflow-hidden aspect-[16/10] bg-slate-100 dark:bg-slate-950">
-            {project.preview && !videoFallback ? (
-              <video
-                poster={imgSrc}
-                autoPlay
-                muted
-                loop
-                playsInline
-                onError={() => setVideoFallback(true)}
-                className="
-                  w-full
-                  h-full
-                  object-cover
-                  object-top
-                  transition-transform
-                  duration-700
-                  ease-out
-                  group-hover:scale-105
-                "
-              >
-                <source src={project.preview} type="video/mp4" />
-                <img
-                  loading="lazy"
-                  decoding="async"
-                  src={imgSrc}
-                  alt={project.title}
-                  onError={handleImageError}
-                  className="w-full h-full object-cover object-top"
-                />
-              </video>
-            ) : (
-              <img
-                loading="lazy"
-                decoding="async"
-                src={imgSrc}
-                alt={project.title}
-                onError={handleImageError}
-                className="
-                  w-full
-                  h-full
-                  object-cover
-                  object-top
-                  transition-transform
-                  duration-700
-                  ease-out
-                  group-hover:scale-105
-                "
-              />
-            )}
+            <img
+              loading="lazy"
+              decoding="async"
+              src={imgSrc}
+              alt={project.title}
+              onError={handleImageError}
+              className="
+                w-full
+                h-full
+                object-cover
+                object-top
+                transition-transform
+                duration-500
+                ease-out
+                group-hover:scale-[1.03]
+              "
+            />
 
             {/* Subtle Gradient Overlay on Hover */}
             <div
@@ -159,7 +129,7 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
                 absolute
                 inset-0
                 bg-gradient-to-t
-                from-black/30
+                from-black/25
                 via-transparent
                 to-transparent
                 opacity-0
@@ -171,61 +141,55 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
             />
 
             {/* Live Badge */}
-            <div className="absolute bottom-4 left-4 z-10 inline-flex items-center gap-2 rounded-full bg-slate-950/80 dark:bg-black/80 backdrop-blur-md px-3.5 py-1.5 text-xs font-semibold text-white shadow-lg border border-white/10">
+            <div className="absolute bottom-3.5 left-3.5 z-10 inline-flex items-center gap-2 rounded-full bg-slate-950/85 dark:bg-black/85 backdrop-blur-md px-3 py-1 text-xs font-semibold text-white shadow-lg border border-white/10 select-none">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span>Live Project</span>
+              <span>Live</span>
             </div>
 
-            {/* Floating Tech Pill */}
+            {/* Floating Tech Pill with Hardware-accelerated CSS float */}
             {project.tech && project.tech.length > 0 && (
-              <motion.div
-                animate={{
-                  y: [-4, 4, -4],
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 4,
-                  ease: "easeInOut",
-                }}
+              <div
                 className="
                   hidden
                   sm:flex
                   items-center
                   gap-2
                   absolute
-                  top-4
-                  right-4
+                  top-3.5
+                  right-3.5
                   z-10
                   rounded-xl
-                  bg-white/90
-                  dark:bg-slate-900/90
+                  bg-white/95
+                  dark:bg-slate-900/95
                   backdrop-blur-md
-                  shadow-xl
-                  px-3.5
-                  py-2
+                  shadow-lg
+                  px-3
+                  py-1.5
                   border
                   border-slate-200/80
                   dark:border-slate-700/80
+                  animate-float-gentle
+                  select-none
                 "
               >
                 <div className="w-1.5 h-1.5 rounded-full bg-violet-500" />
                 <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
                   {project.tech.slice(0, 2).join(" • ")}
                 </span>
-              </motion.div>
+              </div>
             )}
           </div>
         </div>
       </div>
 
       {/* Right Side – Content */}
-      <div className="space-y-6">
+      <div className="space-y-5">
         {/* Header */}
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-50 dark:bg-violet-950/50 border border-violet-200/60 dark:border-violet-800/60 text-xs font-semibold text-violet-600 dark:text-violet-400 mb-3 tracking-wide">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-50 dark:bg-violet-950/50 border border-violet-200/60 dark:border-violet-800/60 text-xs font-semibold text-violet-600 dark:text-violet-400 mb-2.5 tracking-wide">
             {project.subtitle}
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 dark:text-white leading-tight">
@@ -248,10 +212,10 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
                 border
                 border-slate-200
                 dark:border-slate-800
-                bg-slate-100/70
+                bg-slate-100/80
                 dark:bg-slate-800/60
-                px-3
-                py-1.5
+                px-2.5
+                py-1
                 text-xs
                 font-medium
                 text-slate-700
@@ -268,7 +232,7 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
 
         {/* Project Statistics */}
         {project.stats && (
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-800/60">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-800/60">
             <div>
               <p className="text-[11px] font-medium uppercase tracking-wider text-slate-400 dark:text-slate-500">
                 Duration
@@ -307,13 +271,13 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
 
         {/* Features */}
         {project.features && (
-          <div className="grid sm:grid-cols-2 gap-2.5 pt-1">
+          <div className="grid sm:grid-cols-2 gap-2 pt-0.5">
             {project.features.map((feature) => (
               <div
                 key={feature}
-                className="flex items-center gap-2.5 text-sm text-slate-700 dark:text-slate-300"
+                className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300"
               >
-                <CheckCircle2 className="text-emerald-500 shrink-0" size={17} />
+                <CheckCircle2 className="text-emerald-500 shrink-0" size={16} />
                 <span>{feature}</span>
               </div>
             ))}
@@ -321,7 +285,7 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
         )}
 
         {/* Buttons */}
-        <div className="flex flex-wrap items-center gap-4 pt-3">
+        <div className="flex flex-wrap items-center gap-3.5 pt-2">
           {project.live && (
             <a
               href={
@@ -335,21 +299,21 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
                 group
                 inline-flex
                 items-center
-                gap-2.5
+                gap-2
                 rounded-xl
                 bg-gradient-to-r
                 from-violet-600
                 to-indigo-600
                 hover:from-violet-500
                 hover:to-indigo-500
-                px-6
-                py-3.5
+                px-5
+                py-2.5
                 text-white
                 font-semibold
                 text-sm
-                shadow-lg
-                shadow-violet-600/20
-                hover:shadow-violet-600/35
+                shadow-md
+                hover:shadow-lg
+                hover:shadow-violet-600/25
                 transition-all
                 duration-200
                 hover:-translate-y-0.5
@@ -357,8 +321,8 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
               "
             >
               <ExternalLink
-                size={17}
-                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                size={16}
+                className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
               />
               Live Demo
             </a>
@@ -377,7 +341,7 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
                 group
                 inline-flex
                 items-center
-                gap-2.5
+                gap-2
                 rounded-xl
                 border
                 border-slate-300
@@ -386,8 +350,8 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
                 dark:bg-slate-800
                 hover:bg-slate-50
                 dark:hover:bg-slate-700/80
-                px-6
-                py-3.5
+                px-5
+                py-2.5
                 text-slate-800
                 dark:text-slate-200
                 font-semibold
@@ -401,8 +365,8 @@ export default function FeaturedProjectCard({ project, reverse = false }) {
               "
             >
               <FaGithub
-                size={17}
-                className="transition-transform group-hover:scale-110"
+                size={16}
+                className="transition-transform duration-200 group-hover:scale-110"
               />
               GitHub
             </a>
