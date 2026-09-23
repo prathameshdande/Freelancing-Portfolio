@@ -17,7 +17,7 @@ export default function Journey() {
   const stats = [
     {
       icon: Award,
-      number: "50+",
+      number: "5+",
       label: "Projects Completed",
       gradient: "from-violet-600 to-indigo-600",
       color: "text-violet-600 dark:text-violet-400",
